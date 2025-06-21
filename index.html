@@ -1,59 +1,745 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Praneeth Vemuluri</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #333;
-      background: #f9f9f9;
-    }
-    h1, h2 {
-      margin-bottom: 0.3em;
-    }
-    p {
-      margin-top: 0;
-      margin-bottom: 1.2em;
-    }
-    a {
-      color: #0366d6;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    ul {
-      padding-left: 20px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Praneeth Prasad Vemuluri | Portfolio</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<style>
+:root {
+  --color-bg-light: #f8f9fa;
+  --color-bg-dark: #121212;
+  --color-text-light: #212529;
+  --color-text-dark: #e9ecef;
+  --color-accent-light: #00796b; /* darker teal */
+  --color-accent-dark: #004d40; /* even darker teal */
+  --color-sidebar-bg-light: #ffffff;
+  --color-sidebar-bg-dark: #1e1e1e;
+  --transition-speed: 0.35s;
+  --sidebar-glow-dark: rgba(0, 121, 107, 0.3);
+  --shape-color-light: #00796b;
+  --shape-color-dark: #004d40;
+}
+
+body {
+  margin: 0; padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  height: 100vh;
+  transition: background var(--transition-speed), color var(--transition-speed);
+  font-size: 15px;
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "sidebar content rightbar"
+    "footer footer footer";
+  grid-template-columns: 280px 1fr 260px;
+  grid-template-rows: 80px 1fr 48px;
+  overflow: hidden;
+}
+
+header {
+  grid-area: header;
+  background: var(--color-sidebar-bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid #333;
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--color-accent-light);
+  user-select: none;
+}
+
+header button#downloadBtn {
+  cursor: pointer;
+  background: transparent;
+  border: 2px solid var(--color-accent-light);
+  color: var(--color-accent-light);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+header button#downloadBtn:hover,
+header button#downloadBtn:focus {
+  background-color: var(--color-accent-light);
+  color: var(--color-bg-dark);
+  outline: none;
+}
+
+main.content {
+  grid-area: content;
+  overflow-y: auto;
+  padding: 2rem 2rem 2rem 2rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-dark) transparent;
+  scroll-behavior: smooth;
+}
+main.content::-webkit-scrollbar {
+  width: 8px;
+}
+main.content::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-dark);
+  border-radius: 10px;
+}
+
+.sidebar-left,
+.sidebar-right {
+  padding: 1.5rem 1.2rem;
+  overflow-y: auto;
+  background: var(--color-sidebar-bg-dark);
+  border-radius: 0 12px 12px 0;
+  transition: background var(--transition-speed), box-shadow var(--transition-speed);
+  position: relative;
+  color: var(--color-text-dark);
+  user-select: none;
+}
+.sidebar-left {
+  grid-area: sidebar;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  height: 100%;
+}
+.sidebar-left .top-contact,
+.sidebar-left .bottom-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.sidebar-left .top-contact > div,
+.sidebar-left .bottom-contact > div {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.sidebar-left .top-contact .contact-link a,
+.sidebar-left .bottom-contact .contact-link a {
+  color: var(--color-accent-light);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s;
+  user-select: text;
+}
+.sidebar-left .top-contact .contact-link a:hover,
+.sidebar-left .top-contact .contact-link a:focus,
+.sidebar-left .bottom-contact .contact-link a:hover,
+.sidebar-left .bottom-contact .contact-link a:focus {
+  color: var(--color-accent-dark);
+  outline: none;
+}
+
+/* Experience styling */
+section#experience details {
+  background: transparent;
+  border: 2px solid var(--color-accent-light);
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  padding: 0.8rem 1.2rem;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.77,0,0.175,1);
+  user-select: none;
+  will-change: transform, box-shadow;
+}
+section#experience details[open] {
+  background: var(--color-accent-light);
+  color: var(--color-bg-dark);
+  box-shadow: 0 0 18px var(--color-accent-light);
+  transform: scale(1.03);
+  transition: all 0.5s cubic-bezier(0.77,0,0.175,1);
+}
+section#experience details summary {
+  font-weight: 700;
+  font-size: 1.2rem;
+  outline: none;
+  list-style: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+section#experience details[open] summary {
+  color: var(--color-bg-dark);
+}
+section#experience details summary::-webkit-details-marker {
+  display: none;
+}
+section#experience details summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.8rem;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  color: var(--color-accent-light);
+}
+section#experience details[open] summary::before {
+  transform: rotate(90deg);
+  color: var(--color-bg-dark);
+}
+section#experience details p {
+  margin-top: 0.6rem;
+  line-height: 1.4;
+  font-weight: 500;
+  user-select: text;
+}
+
+/* Project carousel styles */
+.project-carousel {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-light) transparent;
+}
+.project-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+.project-carousel::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-light);
+  border-radius: 10px;
+}
+.project-carousel::before,
+.project-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 40px;
+  pointer-events: none;
+  z-index: 10;
+}
+.project-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-dark) 0%, transparent 100%);
+}
+.project-carousel::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-dark) 0%, transparent 100%);
+}
+.project-card {
+  min-width: 280px;
+  flex: 0 0 auto;
+  padding: 1rem;
+  background: #263238;
+  border-radius: 12px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  cursor: default;
+  color: var(--color-text-dark);
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border: 1px solid var(--color-accent-light);
+}
+.project-card:hover,
+.project-card:focus {
+  transform: scale(1.07) translateY(-6px);
+  outline: none;
+  border-color: #004d40;
+  box-shadow: 0 0 12px #004d40;
+}
+
+/* Right sidebar skill badges and certification shapes */
+.sidebar-right > div:first-child {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+.skill-label {
+  position: relative;
+  font-weight: 600;
+  margin-bottom: 12px;
+  user-select: none;
+  padding-left: 30px;
+  color: var(--color-text-dark);
+  transition: color var(--transition-speed);
+}
+.skill-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+  box-shadow: 0 0 6px var(--color-accent-light);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+.sidebar-right:hover .skill-label::before {
+  background: var(--color-accent-dark);
+  box-shadow: 0 0 12px var(--color-accent-dark);
+}
+.sidebar-right > div.skill-label:hover,
+.sidebar-right > div.skill-label:focus {
+  color: var(--color-accent-dark);
+  outline: none;
+  cursor: default;
+}
+
+/* Skill level badges */
+.skill-badge {
+  position: absolute;
+  right: 0;
+  top: 1px;
+  background: var(--color-accent-light);
+  color: var(--color-bg-dark);
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 0 6px var(--color-accent-light);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  user-select: none;
+}
+.sidebar-right:hover .skill-badge {
+  background: var(--color-accent-dark);
+  box-shadow: 0 0 10px var(--color-accent-dark);
+}
+
+/* Certifications with polygon shapes */
+.sidebar-right > div.certification {
+  position: relative;
+  font-weight: 600;
+  margin-top: 12px;
+  padding-left: 30px;
+  cursor: default;
+  color: var(--color-text-dark);
+  transition: color var(--transition-speed);
+  user-select: none;
+}
+.sidebar-right > div.certification::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 18% 100%, 0% 35%);
+  background: var(--color-accent-light);
+  box-shadow: 0 0 6px var(--color-accent-light);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+.sidebar-right > div.certification:hover,
+.sidebar-right > div.certification:focus {
+  color: var(--color-accent-dark);
+  outline: none;
+}
+.sidebar-right:hover > div.certification::before {
+  background: var(--color-accent-dark);
+  box-shadow: 0 0 12px var(--color-accent-dark);
+}
+
+/* Scroll fade */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* About Me styling */
+section#about {
+  background: #004d40;
+  padding: 2rem 2.5rem;
+  border-radius: 14px;
+  box-shadow: 0 0 12px var(--color-accent-light);
+  user-select: none;
+  line-height: 1.5;
+  font-size: 1rem;
+  color: var(--color-text-dark);
+  font-weight: 400;
+  white-space: pre-line;
+  margin-bottom: 2rem;
+}
+
+/* Floating nav styles */
+#floating-nav {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: var(--color-sidebar-bg-dark);
+  border: 1px solid var(--color-accent-light);
+  border-radius: 12px;
+  padding: 0.2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1500;
+  box-shadow: 0 0 12px var(--color-accent-light);
+  user-select: none;
+}
+#floating-nav ul {
+  margin: 0; padding: 0; list-style: none;
+}
+#floating-nav li {
+  margin: 0;
+}
+#floating-nav a {
+  display: block;
+  color: var(--color-accent-light);
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+#floating-nav a:hover,
+#floating-nav a:focus {
+  background-color: var(--color-accent-light);
+  color: var(--color-bg-dark);
+  outline: none;
+  cursor: pointer;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1000px) {
+  body {
+    grid-template-columns: 220px 1fr 200px;
+    grid-template-rows: 80px 1fr 48px;
+  }
+  header {
+    font-size: 1.7rem;
+    padding: 0 1.3rem;
+  }
+  .project-card {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "content"
+      "sidebar"
+      "rightbar"
+      "footer";
+    grid-template-rows: 60px 1fr auto auto 48px;
+  }
+  .sidebar-left, .sidebar-right {
+    border-radius: 0;
+    border: none;
+    padding: 1rem 1rem;
+    height: auto;
+    max-height: none;
+  }
+  .sidebar-left {
+    order: 3;
+  }
+  .sidebar-right {
+    order: 4;
+  }
+  footer {
+    justify-content: center;
+  }
+  main.content {
+    padding: 1.5rem 1.2rem 1.5rem 1.2rem;
+  }
+}
+
+footer {
+  grid-area: footer;
+  background: var(--color-sidebar-bg-dark);
+  border-top: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  font-size: 0.9rem;
+  color: var(--color-accent-light);
+  user-select: none;
+}
+
+footer .copyright {
+  user-select: text;
+}
+
+footer button.footer-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--color-accent-light);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.3s ease;
+}
+
+footer button.footer-button:hover,
+footer button.footer-button:focus {
+  color: var(--color-accent-dark);
+  outline: none;
+}
+
+.footer-button i.fa-download {
+  font-size: 1.1rem;
+}
+
+.theme-toggle {
+  cursor: pointer;
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  background: #555;
+  position: relative;
+  user-select: none;
+}
+.theme-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: white;
+  transition: left 0.35s;
+}
+body.dark .theme-toggle {
+  background: var(--color-accent-light);
+}
+body.dark .theme-toggle::after {
+  left: 22px;
+  background: var(--color-bg-dark);
+}
+
+/* Accessibility outline */
+:focus-visible {
+  outline: 3px solid var(--color-accent-light);
+  outline-offset: 2px;
+}
+
+</style>
 </head>
-<body>
-  <h1>Hi, I’m Praneeth.</h1>
+<body class="dark">
 
-  <p>
-    I’m a software developer with over five years of experience, mostly working with .NET technologies. I like writing clean and efficient code and solving real-world problems through software.
-  </p>
+<header>
+  Praneeth Prasad Vemuluri
+  <button id="downloadBtn" aria-label="Download Resume" title="Download Resume">
+    <i class="fa fa-download" aria-hidden="true"></i> Download Resume
+  </button>
+</header>
 
-  <p>
-    Right now, I’m focusing on improving my skills in data structures and algorithms, as well as exploring AI and cloud development.
-  </p>
+<div class="sidebar-left" aria-label="Contact Information">
 
-  <p>
-    On this page, you’ll find some of my projects — from small utilities to automation tools using APIs like Adobe Sign and Microsoft Graph. I also like sharing what I learn along the way through articles and tutorials.
-  </p>
+  <div class="top-contact">
+    <div class="contact-link"><i class="fas fa-envelope"></i> <a href="mailto:praneethlucky132@gmail.com" target="_blank" rel="noopener noreferrer">praneethlucky132@gmail.com</a></div>
+    <div class="contact-link"><i class="fab fa-github"></i> <a href="https://github.com/Praneethlucky" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+    <div class="contact-link"><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/praneeth-prasad-vemuluri-515974147/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+    <div class="contact-link"><i class="fas fa-code"></i> <a href="https://leetcode.com/u/praneethlucky132/" target="_blank" rel="noopener noreferrer">LeetCode</a></div>
+    <div class="contact-link"><i class="fas fa-hourglass-half"></i> Total Exp: <span id="totalExp">Loading...</span></div>
+  </div>
 
-  <p>
-    Feel free to check out my repos and get in touch if you want to collaborate or just say hi.
-  </p>
+  <div class="bottom-contact">
+      <div><i class="fas fa-phone"></i> <a href="tel:+917416437358" rel="noopener noreferrer">7416437358</a></div>
+    <div><i class="fas fa-map-marker-alt"></i> Hyderabad, India</div>
+    <div><i class="fas fa-birthday-cake"></i> 05/11/1999</div>
+  </div>
 
-  <p>
-    Connect with me on <a href="https://www.linkedin.com/in/praneeth-prasad-vemuluri-515974147/" target="_blank" rel="noopener noreferrer">LinkedIn</a> or send me an <a href="mailto:praneethlucky132@gmail.com">email</a>.
-  </p>
+</div>
+
+<main class="content" tabindex="0" aria-label="Main content area">
+
+  <section id="about" tabindex="0" aria-label="About me" class="scroll-fade visible" style="user-select:text;">
+Hi, I’m Praneeth.
+I’m a software developer with over five years of experience, mostly working with .NET technologies. I like writing clean and efficient code and solving real-world problems through software.
+
+Right now, I’m focusing on improving my skills in data structures and algorithms, as well as exploring AI and cloud development.
+
+On this page, you’ll find some of my projects — from small utilities to automation tools using APIs like Adobe Sign and Microsoft Graph. I also like sharing what I learn along the way through articles and tutorials.
+
+Feel free to check out my repos and get in touch if you want to collaborate or just say hi.
+
+Connect with me on LinkedIn or send me an email.
+  </section>
+
+  <section id="experience" aria-label="Professional Experience" tabindex="0" class="scroll-fade">
+    <h2>Experience</h2>
+
+    <details open>
+      <summary>Senior Developer - Evernorth Health Services (Dec 2024 - Present)</summary>
+      <p>Building enterprise-grade solutions using .NET 6, Azure, and REST APIs for healthcare applications.</p>
+    </details>
+
+    <details>
+      <summary>Software Engineer - FactSet (Aug 2022 - Dec 2024)</summary>
+      <p>Developed scalable web applications using .NET Core and Angular. Automated workflows with Microsoft Graph API.</p>
+    </details>
+
+    <details>
+      <summary>Software Engineer - Insight Software (Jul 2021 - Aug 2022)</summary>
+      <p>Created internal tooling and reporting solutions with ASP.NET MVC and SQL Server.</p>
+    </details>
+
+    <details>
+      <summary>Intern - Micron Technologies (Jun 2020 - Jul 2021)</summary>
+      <p>Worked on embedded software development and automation scripts using Python and C#.</p>
+    </details>
+  </section>
+
+  <section id="projects" aria-label="Projects" tabindex="0" style="margin-top: 3rem;">
+    <h2>Projects</h2>
+    <div class="project-carousel" aria-roledescription="carousel" tabindex="0">
+      <article class="project-card" tabindex="0" aria-label="Project: Asset Management Web App">
+        <h3>Asset Management Web App</h3>
+        <p>Built with ASP.NET and SQL Server for tracking IT asset orders and stock management.</p>
+      </article>
+      <article class="project-card" tabindex="0" aria-label="Project: Adobe Sign API Integration">
+        <h3>Adobe Sign API Integration</h3>
+        <p>Automated document signing workflows using Adobe Sign and Microsoft Graph APIs.</p>
+      </article>
+      <article class="project-card" tabindex="0" aria-label="Project: Expense Manager Android/Web App">
+        <h3>Expense Manager</h3>
+        <p>Cross-platform app developed with .NET MAUI for personal daily expense tracking.</p>
+      </article>
+      <article class="project-card" tabindex="0" aria-label="Project: Smart India Hackathon Submission">
+        <h3>SIH Submission</h3>
+        <p>Collaborated on innovative solutions in national hackathon events.</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<div class="sidebar-right" aria-label="Skills and Certifications" tabindex="0">
+
+  <div>Skills</div>
+
+  <div class="skill-label" tabindex="0" aria-label="Skill: C# with Expert level">
+    C#<span class="skill-badge">Expert</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: .NET Core with Expert level">
+    .NET Core<span class="skill-badge">Expert</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: Angular with Advanced level">
+    Angular<span class="skill-badge">Advanced</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: SQL Server with Advanced level">
+    SQL Server<span class="skill-badge">Advanced</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: Azure with Intermediate level">
+    Azure<span class="skill-badge">Intermediate</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: AWS with Intermediate level">
+    AWS<span class="skill-badge">Intermediate</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: REST APIs with Advanced level">
+    REST APIs<span class="skill-badge">Advanced</span>
+  </div>
+  <div class="skill-label" tabindex="0" aria-label="Skill: CI/CD with Intermediate level">
+    CI/CD<span class="skill-badge">Intermediate</span>
+  </div>
+
+  <div style="margin-top:2rem;">Certifications</div>
+  <div class="certification" tabindex="0" aria-label="Certification: Google Cloud Professional Data Engineer">
+    Google Cloud Professional Data Engineer
+  </div>
+  <div class="certification" tabindex="0" aria-label="Certification: Atlassian Jira Software">
+    Atlassian Jira Software
+  </div>
+  <div class="certification" tabindex="0" aria-label="Certification: Microsoft Azure Fundamentals">
+    Microsoft Azure Fundamentals
+  </div>
+
+</div>
+
+<footer>
+  <div class="copyright">© 2025 Praneeth Prasad Vemuluri</div>
+  <button class="footer-button" id="themeToggle" aria-pressed="true" aria-label="Toggle dark/light theme" title="Toggle Dark/Light Theme">
+    <div class="theme-toggle" role="switch" aria-checked="true" tabindex="0"></div>
+  </button>
+</footer>
+
+<script>
+const body = document.body;
+const toggleBtn = document.getElementById('themeToggle');
+const toggleSwitch = toggleBtn.querySelector('.theme-toggle');
+const totalExpElem = document.getElementById('totalExp');
+
+// Calculate total experience dynamically from July 27, 2020
+function calculateExperience(startDateStr) {
+  const startDate = new Date(startDateStr);
+  const now = new Date();
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  return `${years} year${years !== 1 ? 's' : ''}` + (months > 0 ? ` ${months} month${months !== 1 ? 's' : ''}` : '');
+}
+totalExpElem.textContent = calculateExperience('2020-07-27');
+
+function updateTheme(isDark) {
+  if (isDark) {
+    body.classList.add('dark');
+    toggleSwitch.setAttribute('aria-checked', 'true');
+    toggleBtn.setAttribute('aria-pressed', 'true');
+  } else {
+    body.classList.remove('dark');
+    toggleSwitch.setAttribute('aria-checked', 'false');
+    toggleBtn.setAttribute('aria-pressed', 'false');
+  }
+}
+
+let darkMode = true;
+updateTheme(darkMode);
+
+toggleBtn.addEventListener('click', () => {
+  darkMode = !darkMode;
+  updateTheme(darkMode);
+});
+
+toggleSwitch.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleBtn.click();
+  }
+});
+
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  const resumeURL = 'https://example.com/PraneethPrasadVemuluri_Resume.pdf'; 
+  window.open(resumeURL, '_blank', 'noopener');
+});
+
+// Scroll fade on sections
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.scroll-fade').forEach(section => {
+  observer.observe(section);
+});
+</script>
 </body>
 </html>
