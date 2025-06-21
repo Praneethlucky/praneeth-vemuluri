@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Praneeth Prasad Vemuluri | Portfolio</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 <style>
@@ -534,6 +534,68 @@ body.dark .theme-toggle::after {
   outline: 3px solid var(--color-accent-light);
   outline-offset: 2px;
 }
+@media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      body {
+        padding: 0.5rem;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+/* Responsive: Stack everything vertically on smaller screens */
+@media (max-width: 720px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "content"
+      "sidebar"
+      "rightbar"
+      "footer";
+    grid-template-rows: 60px 1fr auto auto 48px;
+  }
+
+  header, footer {
+    border-radius: 0;
+  }
+
+  .sidebar-left,
+  .sidebar-right,
+  main.content {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1rem;
+    max-height: none;
+  }
+
+  .sidebar-left {
+    order: 3; /* Sidebar below content */
+    margin-top: 1rem;
+  }
+
+  .sidebar-right {
+    order: 4; /* Right sidebar last */
+    margin-top: 1rem;
+  }
+
+  main.content {
+    order: 2;
+    overflow-y: visible;
+  }
+}
+
 
 </style>
 </head>
@@ -723,10 +785,7 @@ toggleSwitch.addEventListener('keydown', e => {
   }
 });
 
-document.getElementById('downloadBtn').addEventListener('click', () => {
-  const resumeURL = 'https://example.com/PraneethPrasadVemuluri_Resume.pdf'; 
-  window.open(resumeURL, '_blank', 'noopener');
-});
+
 
 // Scroll fade on sections
 const observer = new IntersectionObserver((entries) => {
@@ -740,6 +799,14 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.scroll-fade').forEach(section => {
   observer.observe(section);
 });
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.href = 'PRANEETH PRASAD VEMULURI.pdf';
+    link.download = 'PRANEETH PRASAD VEMULURI.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
 </script>
 </body>
 </html>
